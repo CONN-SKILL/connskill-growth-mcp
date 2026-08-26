@@ -1,0 +1,35 @@
+version: 1
+name: connskill-growth-services
+displayName: CONNSKILL Growth Services
+description: SEO & SERP data, SMS verification and social-marketing actions for AI agents, paid per call via x402 (USDC on Base). Tools are generated live from the service's own discovery document.
+category: data
+tags:
+  - seo
+  - x402
+  - ai-agents
+  - data
+  - usdc
+homepage: https://agent.connskill.com
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      X402_WALLET_KEY:
+        type: string
+        title: Base wallet private key
+        description: Private key of a Base wallet holding USDC. Enables paid calls. Leave empty for free endpoints only. Use a dedicated wallet.
+      X402_MAX_USD:
+        type: string
+        default: "1.00"
+        description: Hard cap per paid call, in USD.
+    required: []
+  commandFunction: |
+    (config) => ({
+      command: 'node',
+      args: ['index.mjs'],
+      env: {
+        X402_WALLET_KEY: config.X402_WALLET_KEY || '',
+        X402_MAX_USD: config.X402_MAX_USD || '1.00'
+      }
+    })
