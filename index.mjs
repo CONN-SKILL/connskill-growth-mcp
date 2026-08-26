@@ -75,15 +75,20 @@ async function buildTools() {
   const tools = [];
   for (const [path, ops] of Object.entries(spec.paths || {})) {
     if (path === '/health' || path.startsWith('/.well-known') || path === '/openapi.json') continue;
-    for (const [method, op] of Object.entries(ops)) {
-      if (!op || typeof op !== 'object' || !op.summary) continue;
+    const usable = Object.entries(ops).filter(([, op]) => op && typeof op === 'object' && op.summary);
+    for (const [method, op] of usable) {
       const paid = !(Array.isArray(op.security) && op.security.length === 0);
       const price = priceByPath.get(path);
       const priceNote = paid
         ? (price != null ? ` (costs ${price.toFixed(2)} USDC on Base via x402)` : ' (paid via x402)')
         : ' (free)';
+      // MCP tool names must be unique. A path serving several methods (e.g.
+      // GET+POST /v1/wishlist) keeps the clean name for POST — the action —
+      // and suffixes the rest with their method.
+      const base = toolName(path);
+      const name = usable.length > 1 && method !== 'post' ? `${base}_${method}` : base;
       tools.push({
-        name: toolName(path),
+        name,
         description: (op.summary || path) + priceNote,
         inputSchema: inputSchemaFor(op),
         _meta: { path, method: method.toUpperCase(), paid, price },
