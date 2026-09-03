@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.conn-skill/connskill-growth-mcp",
+  "description": "SEO/SERP data, SMS verification, inboxes, EU-hosted LLM and x402 seller trust check for AI agents, paid per call in USDC via x402. Tools generated live from agent.connskill.com.",
+  "repository": { "url": "https://github.com/CONN-SKILL/connskill-growth-mcp", "source": "github" },
+  "version": "0.2.0",
+  "websiteUrl": "https://agent.connskill.com",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@connskill/mcp-growth-services",
+      "version": "0.2.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "X402_WALLET_KEY", "description": "Private key (0x...) of a dedicated Base wallet holding USDC. Optional: without it only free endpoints work.", "isRequired": false, "isSecret": true, "format": "string" },
+        { "name": "X402_MAX_USD", "description": "Hard cap per paid call in USD (default 1.00).", "isRequired": false, "isSecret": false, "format": "string" }
+      ]
+    }
+  ]
+}

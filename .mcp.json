@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "connskill-growth": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/index.mjs"],
+      "env": {
+        "X402_WALLET_KEY": "${user_config.X402_WALLET_KEY}",
+        "X402_MAX_USD": "${user_config.X402_MAX_USD}"
+      }
+    }
+  }
+}

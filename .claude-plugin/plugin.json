@@ -1,0 +1,36 @@
+{
+  "name": "connskill-growth",
+  "description": "SEO/SERP data, SMS verification, inboxes, EU-hosted LLM and x402 seller trust check for agents, paid per call in USDC (x402). Tools are generated live from agent.connskill.com.",
+  "version": "0.2.0",
+  "author": {
+    "name": "CONNSKILL GmbH & Co. KG",
+    "url": "https://agent.connskill.com"
+  },
+  "homepage": "https://agent.connskill.com",
+  "repository": "https://github.com/CONN-SKILL/connskill-growth-mcp",
+  "license": "MIT",
+  "keywords": [
+    "x402",
+    "seo",
+    "serp",
+    "usdc",
+    "agents",
+    "gdpr"
+  ],
+  "userConfig": {
+    "X402_WALLET_KEY": {
+      "type": "string",
+      "title": "Base wallet private key",
+      "description": "Private key (0x...) of a dedicated Base wallet holding USDC. Leave empty for free endpoints only.",
+      "sensitive": true,
+      "required": false
+    },
+    "X402_MAX_USD": {
+      "type": "string",
+      "title": "Max USD per paid call",
+      "description": "Hard cap per paid call in USD.",
+      "default": "1.00",
+      "required": false
+    }
+  }
+}
