@@ -1,6 +1,6 @@
 {
   "name": "@connskill/mcp-growth-services",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for CONNSKILL Growth Services \u2014 SEO/SERP data, SMS verification and social marketing for AI agents, paid per call via x402 (USDC on Base). Tools are generated live from the service's own discovery document.",
   "type": "module",
   "bin": {
@@ -32,7 +32,7 @@
     "type": "git",
     "url": "git+https://github.com/CONN-SKILL/connskill-growth-mcp.git"
   },
-  "mcpName": "io.github.conn-skill/connskill-growth-mcp",
+  "mcpName": "io.github.CONN-SKILL/connskill-growth-mcp",
   "homepage": "https://agent.connskill.com",
   "files": [
     "index.mjs",
