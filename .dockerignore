@@ -1,0 +1,15 @@
+**
+!Dockerfile
+!.dockerignore
+!package.json
+!package-lock.json
+!index.mjs
+!README.md
+!LICENSE
+!skills/
+!skills/connskill-growth/
+!skills/connskill-growth/scripts/
+!skills/connskill-growth/scripts/client-config.mjs
+!skills/connskill-growth/scripts/payment-client.mjs
+!skills/connskill-growth/scripts/payment-attempt-store.mjs
+!skills/connskill-growth/scripts/x402-call.mjs

@@ -1,18 +1,20 @@
 {
   "name": "@connskill/mcp-growth-services",
-  "version": "0.2.1",
-  "description": "MCP server for CONNSKILL Growth Services \u2014 SEO/SERP data, SMS verification and social marketing for AI agents, paid per call via x402 (USDC on Base). Tools are generated live from the service's own discovery document.",
+  "version": "0.3.0",
+  "description": "MCP server for CONNSKILL Growth Services — SEO/SERP data, SMS verification and social marketing for AI agents, paid per call via x402 (USDC on Base). Tools are generated live from the service's own discovery document.",
   "type": "module",
   "bin": {
     "connskill-growth-mcp": "index.mjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
-    "x402-fetch": "^1.2.0",
-    "viem": "^2.55.0"
+    "viem": "^2.55.0",
+    "@x402/fetch": "2.17.0",
+    "@x402/core": "2.17.0",
+    "@x402/evm": "2.17.0"
   },
   "keywords": [
     "agents",

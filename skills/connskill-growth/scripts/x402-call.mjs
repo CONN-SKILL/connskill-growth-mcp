@@ -1,47 +1,60 @@
 #!/usr/bin/env node
-// Standalone x402 client for CONNSKILL Growth Services (agent.connskill.com).
-// Same payment path as the MCP server, usable from any agent that can run node.
-//
-//   node x402-call.mjs GET  /v1/locations '{"q":"munich"}'
-//   node x402-call.mjs POST /v1/keyword-ideas '{"keyword":"agent commerce","location":"Germany"}'
-//   node x402-call.mjs prices            # free: every endpoint with its USDC price
-//
-// Env: X402_WALLET_KEY (Base private key holding USDC; omit for free endpoints),
-//      X402_MAX_USD (cap per paid call, default 1.00), X402_ORIGIN.
-// Needs: npm i x402-fetch viem   (only for paid calls; free calls need nothing)
-const ORIGIN = (process.env.X402_ORIGIN || 'https://agent.connskill.com').replace(/\/+$/, '');
-const KEY = process.env.X402_WALLET_KEY || '';
-const MAX_USD = Number(process.env.X402_MAX_USD || '1.00');
-const [method = 'prices', path = '', json = '{}'] = process.argv.slice(2);
+// Standalone entrypoint. Copy the complete skill so shared modules stay together.
+import { createConfiguredClients, clientErrorCode } from './client-config.mjs';
+import { formatUsdc, PaymentClientError } from './payment-client.mjs';
 
-const out = (o) => { process.stdout.write(typeof o === 'string' ? o : JSON.stringify(o, null, 2)); process.stdout.write('\n'); };
-
-if (method.toLowerCase() === 'prices') {
-  const wk = await fetch(`${ORIGIN}/.well-known/x402`).then(r => r.json());
-  out((wk.services || []).map(s => ({ endpoint: s.endpoint, usd: s.accepts?.[0]?.amount != null ? Number(s.accepts[0].amount) / 1e6 : null, summary: s.description || s.summary || '' })));
-  process.exit(0);
+const out = value => process.stdout.write((typeof value === 'string' ? value : JSON.stringify(value, null, 2)) + '\n');
+function pricesFor(service) {
+  if (!Array.isArray(service.accepts) || !service.accepts.length) return null;
+  try {
+    const values = service.accepts.map(item => ({ display: formatUsdc(item.amount), amount: BigInt(item.amount) }));
+    values.sort((a, b) => a.amount < b.amount ? -1 : a.amount > b.amount ? 1 : 0);
+    return values[0].amount === values.at(-1).amount ? values[0].display : values[0].display + '-' + values.at(-1).display;
+  } catch { return null; }
 }
-if (!path.startsWith('/')) { console.error('usage: x402-call.mjs <GET|POST> </path> [json]'); process.exit(2); }
 
-const args = JSON.parse(json);
-const url = new URL(ORIGIN + path);
-const opts = { method: method.toUpperCase(), headers: { 'user-agent': 'connskill-growth-skill/0.2' } };
-if (opts.method === 'GET') for (const [k, v] of Object.entries(args)) if (v != null) url.searchParams.set(k, String(v));
-else { opts.headers['content-type'] = 'application/json'; opts.body = JSON.stringify(args); }
-
-let doFetch = fetch;
-if (KEY) {
-  const { privateKeyToAccount } = await import('viem/accounts');
-  const { wrapFetchWithPayment } = await import('x402-fetch');
-  const account = privateKeyToAccount(KEY.startsWith('0x') ? KEY : `0x${KEY}`);
-  doFetch = wrapFetchWithPayment(fetch, account, BigInt(Math.round(MAX_USD * 1e6)));
+try {
+  const clients = createConfiguredClients();
+  const commandArgs = process.argv.slice(2);
+  const newPurchase = commandArgs.at(-1) === '--new-purchase';
+  if (newPurchase) commandArgs.pop();
+  if (commandArgs.length > 3) throw Error('Unexpected arguments');
+  const [method = 'prices', target = '', json = '{}'] = commandArgs;
+  if (method.toLowerCase() === 'prices') {
+    const response = await clients.free.request('/.well-known/x402', { method: 'GET' }, { paid: false });
+    if (!response.ok || !Array.isArray(response.json?.services)) throw Error('discovery unavailable');
+    out(response.json.services.filter(s => s && typeof s.endpoint === 'string').map(s => ({
+      endpoint: s.endpoint, method: s.method || null, usd: pricesFor(s), summary: s.description || s.summary || '',
+    })));
+  } else {
+    if (!target.startsWith('/') || target.startsWith('//')) {
+      console.error('usage: x402-call.mjs <GET|POST> </path> [json] [--new-purchase]'); process.exitCode = 2;
+    } else {
+      const args = JSON.parse(json);
+      if (!args || typeof args !== 'object' || Array.isArray(args)) throw Error('JSON object required');
+      const rawUrl = clients.origin + target;
+      const url = new URL(rawUrl);
+      if (url.href !== rawUrl) throw new PaymentClientError('payment_target_invalid');
+      const options = { method: method.toUpperCase(), headers: { 'user-agent': 'connskill-growth-skill/0.3' } };
+      if (options.method === 'GET' || options.method === 'HEAD') {
+        for (const [key, value] of Object.entries(args)) if (value != null) url.searchParams.set(key, String(value));
+      } else {
+        options.headers['content-type'] = 'application/json';
+        options.body = JSON.stringify(args);
+      }
+      const client = clients.hasWallet ? await clients.paid() : clients.free;
+      const response = await client.request(url.href, options, { paid: clients.hasWallet, newPurchase });
+      if (response.payment.state !== 'unpaid') out({ status: response.status, payment: response.payment, response: response.json ?? response.text });
+      else out(response.text);
+      if (!response.ok) {
+        console.error(response.status === 402 && !clients.hasWallet
+          ? '402 Payment Required. Set X402_WALLET_KEY (a dedicated Base wallet with USDC) to enable paid calls.'
+          : 'HTTP ' + response.status);
+        process.exitCode = 1;
+      }
+    }
+  }
+} catch (error) {
+  console.error('Call failed: ' + clientErrorCode(error));
+  process.exitCode = 1;
 }
-const res = await doFetch(url.toString(), opts);
-const text = await res.text();
-if (res.status === 402) {
-  let price = null; try { price = JSON.parse(text).accepts?.[0]?.amount; } catch {}
-  console.error(`402 Payment Required${price ? ` (${Number(price) / 1e6} USDC)` : ''}. ${KEY ? 'Payment failed or above X402_MAX_USD.' : 'Set X402_WALLET_KEY (Base wallet with USDC) to pay per call. Free endpoints need no key.'}`);
-  out(text); process.exit(1);
-}
-if (!res.ok) { console.error(`HTTP ${res.status}`); out(text); process.exit(1); }
-out(text);

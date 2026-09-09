@@ -1,15 +1,26 @@
 {
   "name": "connskill",
-  "owner": { "name": "CONNSKILL GmbH & Co. KG", "url": "https://agent.connskill.com" },
-  "metadata": { "description": "Plugins from CONNSKILL: pay-per-call market data and actions for agents via x402." },
+  "owner": {
+    "name": "CONNSKILL GmbH & Co. KG",
+    "url": "https://agent.connskill.com"
+  },
+  "metadata": {
+    "description": "Plugins from CONNSKILL: pay-per-call market data and actions for agents via x402."
+  },
   "plugins": [
     {
       "name": "connskill-growth",
       "source": "./",
       "description": "SEO/SERP data, SMS verification, inboxes, EU-hosted LLM and x402 seller trust check, paid per call in USDC. MCP server + skill.",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "category": "data",
-      "keywords": ["x402", "seo", "serp", "usdc", "gdpr"]
+      "keywords": [
+        "x402",
+        "seo",
+        "serp",
+        "usdc",
+        "gdpr"
+      ]
     }
   ]
 }
