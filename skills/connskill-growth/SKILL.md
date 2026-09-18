@@ -68,12 +68,13 @@ information only; do not request private customer data, keys or seed phrases.
 
 ## Client version and entry points
 
-Checked 18 September 2026, 14:19 UTC: source is the **0.3.0 candidate**, while
-[npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest) and the
-[official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest)
-still publish **0.2.1**. `npx -y @connskill/mcp-growth-services` selects that npm
-release, not the source candidate. The following v2 safeguards describe 0.3.0
-source. For that candidate, use the repository's locked source setup and run
+These instructions describe version **0.3.0** with the v2 payment client.
+Earlier **0.2.1** installations use a different payment client; do not assume
+these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
+and the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest).
+`npx -y @connskill/mcp-growth-services` selects npm's published release, not
+necessarily the current GitHub source. For this checked-in version, use the
+repository's locked source setup and run
 `node /absolute/path/to/connskill-growth-mcp/index.mjs` in your MCP client.
 
 The MCP server generates tools from the current catalogue on first use; restart

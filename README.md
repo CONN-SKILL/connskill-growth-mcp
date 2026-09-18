@@ -28,19 +28,19 @@ No account, no API key. Paid calls use **USDC on Base via x402**. Free endpoints
 
 ## Source and published package
 
-Checked **18 September 2026, 14:19 UTC**: this source tree is the **0.3.0 candidate**;
-[npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest) and the
-[official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest)
-still publish **0.2.1**. An unversioned `npx` command installs the published package,
-not this source candidate. The v2 payment safeguards described below refer to
-0.3.0 source and must not be assumed for 0.2.1. Use [the source setup](#from-source)
-to run the candidate. Publishing npm, Registry metadata and Glama remains a separate release.
+Version **0.3.0** introduces the v2 payment client and persistent purchase guards
+described below. Earlier **0.2.1** installations use a different payment client;
+do not assume these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
+and the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest)
+before installing. An unversioned `npx` command selects npm's published release,
+not necessarily the current GitHub source. Use [the source setup](#from-source)
+for this checked-in version. GitHub, npm, Registry and Glama are separate release channels.
 
 This repo provides three entry points:
 
 | Form | For | Install |
 |---|---|---|
-| **MCP server** (`index.mjs`) | Claude Code, Claude Desktop, Cursor, Codex, OpenClaw, Hermes, anything MCP | Published npm package, currently 0.2.1; see source setup for 0.3.0 |
+| **MCP server** (`index.mjs`) | Claude Code, Claude Desktop, Cursor, Codex, OpenClaw, Hermes, anything MCP | Published npm package; check its version, or use the source setup |
 | **Skill** (`skills/connskill-growth/`) | Claude Code, Codex, OpenClaw, Hermes (agentskills.io format) | copy the folder or install from this repo |
 | **Standalone script** (`skills/connskill-growth/scripts/x402-call.mjs`) | any agent that can run `node` | `node x402-call.mjs GET /v1/local-market-check-quote` (free) |
 
@@ -51,7 +51,7 @@ operations are kept out of this adapter. Restart the MCP process to load an upda
 
 ## Payment model
 
-The following describes the 0.3.0 source candidate, not the currently published 0.2.1 package.
+The following describes version 0.3.0 and does not apply to earlier 0.2.1 installations.
 
 - **Free endpoints** work with no wallet.
 - **Paid endpoints** need `X402_WALLET_KEY`, the private key of a Base wallet holding
@@ -89,8 +89,8 @@ agent may spend. Never a main wallet.
 ## Install
 
 The 0.3.0 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
-The `npx` examples below select the published npm release (0.2.1 at the check above).
-For the 0.3.0 source candidate, use `node` and the absolute path to its `index.mjs`
+The `npx` examples below select the published npm release; verify its version first.
+To run the checked-in source, use `node` and the absolute path to its `index.mjs`
 after the source setup. Free discovery needs no wallet.
 
 ### Claude Code
