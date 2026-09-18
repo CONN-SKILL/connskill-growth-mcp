@@ -1,6 +1,6 @@
 # CONNSKILL Growth Services MCP
 
-Stand: 18.09.2026. Status `partial`: GitHub-Quelle 0.3.0; npm und MCP Registry führen beim heutigen Abruf noch 0.2.1. Ein Git-Push veröffentlicht kein npm-Paket.
+Stand: 18.09.2026. Version 0.3.0 ist auf GitHub, npm und in der offiziellen MCP Registry veröffentlicht und öffentlich geprüft. Status `e2e_verified` für Veröffentlichung, Paketintegrität und kostenlose MCP-Discovery; bezahlte Lieferung wurde bei dieser Abnahme nicht getestet.
 
 ## Auf einen Blick
 
@@ -8,7 +8,7 @@ MCP-Adapter und portabler Agenten-Skill für die Angebote von [agent.connskill.c
 
 ## Offen
 
-- Geprüfte Quelle 0.3.0 über npm und anschließend MCP Registry veröffentlichen.
+- Glama-Build und Inspektion getrennt abschließen.
 - Externe Listings auf Ergebnisangebote ausrichten und deren tatsächliche Veröffentlichung prüfen.
 
 ## Regeln und Ablage
@@ -22,3 +22,5 @@ MCP-Adapter und portabler Agenten-Skill für die Angebote von [agent.connskill.c
 ## Entscheidungen und Verlauf
 
 18.09.2026: Der Local Market Check ist auf der Service-Website veröffentlicht. Die Distributionsunterlagen werden um dessen Ergebnis, freie Quote und genau einen Paketauftrag ergänzt. Ein Listing oder Download beweist keinen Verkauf. Keine Testzahlung im Rahmen dieser Dokumentationsarbeit.
+
+18.09.2026: npm latest und MCP Registry latest jeweils 0.3.0 öffentlich bestätigt. Heruntergeladenes npm-Archiv bytegleich zum vorbereiteten Paket; kostenlose Probe erkennt 78 Tools inklusive Local Market Check und Quote. Ohne Wallet kein Kaufdispatch.
