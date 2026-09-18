@@ -1,7 +1,7 @@
 {
   "name": "@connskill/mcp-growth-services",
   "version": "0.3.0",
-  "description": "MCP server for CONNSKILL Growth Services — SEO/SERP data, SMS verification and social marketing for AI agents, paid per call via x402 (USDC on Base). Tools are generated live from the service's own discovery document.",
+  "description": "Local market checks, domain rankings and keyword research for AI agents. One JSON result per approved x402 call in USDC on Base; tools generated from live discovery.",
   "type": "module",
   "bin": {
     "connskill-growth-mcp": "index.mjs"
@@ -20,7 +20,6 @@
     "agents",
     "ai-agents",
     "connskill",
-    "gdpr",
     "mcp",
     "seo",
     "serp",

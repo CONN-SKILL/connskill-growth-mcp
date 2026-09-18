@@ -1,21 +1,48 @@
 # @connskill/mcp-growth-services
 
-Pay-per-call market data and real-world actions for AI agents, served from
-agent.connskill.com: keyword volume by location,
-Google SERP snapshots (with AI-overview and PAA blocks), site audits with a real crawl,
-backlinks, competitors, SMS verification numbers, receive-only inboxes,
-LLM chat hosted in Germany, and a trust check for other x402 sellers.
+Turn a local business question into one JSON report: Google search results, Maps
+listings, observed competitor domains and optional own-domain presence. The
+**Local Market Check** combines these observations in one paid package call.
+You can also start with a domain-ranking snapshot or selected keyword demand.
+
+| Result | Free recipe | Paid tool |
+|---|---|---|
+| Search + Maps for one term and location | [Local Market Check](https://agent.connskill.com/local-market-check) · [JSON recipe](https://agent.connskill.com/local-market-check.json) | `local_market_check` |
+| Keywords a domain ranks for | [Domain rankings](https://agent.connskill.com/domain-rankings) · [JSON recipe](https://agent.connskill.com/domain-rankings.json) | `ranked_keywords` |
+| Search volume and advertising competition for selected terms | [Keyword demand](https://agent.connskill.com/keyword-research) · [JSON recipe](https://agent.connskill.com/keyword-research.json) | `keyword_metrics` |
+
+The recipes are free and do not authorize payment. Resolve location and language,
+read the current contract and quote, then approve the scope and total spending
+limit before buying. Local Market Check returns JSON with `serpTop`, `maps`,
+`competitors`, optional `presence` and `tips`. Check `partial` and
+`unavailableSections`: missing data remains unknown. Tips are suggestions, not
+verified findings. The result is a sample, not a complete market analysis or a
+ranking/revenue promise. Do not buy the component searches separately or retry
+payment after an unclear result.
+
+Other catalogue services include site audits, backlinks, SMS verification,
+receive-only inboxes, LLM chat hosted in Germany and x402 seller checks.
 
 No account, no API key. Paid calls use **USDC on Base via x402**. Free endpoints
 (quotes, catalogue, status, locations) need no wallet at all.
 
-This repo ships the same capability in three forms, so any agent can buy:
+## Source and published package
+
+Checked **18 September 2026, 14:19 UTC**: this source tree is the **0.3.0 candidate**;
+[npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest) and the
+[official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest)
+still publish **0.2.1**. An unversioned `npx` command installs the published package,
+not this source candidate. The v2 payment safeguards described below refer to
+0.3.0 source and must not be assumed for 0.2.1. Use [the source setup](#from-source)
+to run the candidate. Publishing npm, Registry metadata and Glama remains a separate release.
+
+This repo provides three entry points:
 
 | Form | For | Install |
 |---|---|---|
-| **MCP server** (`index.mjs`) | Claude Code, Claude Desktop, Cursor, Codex, OpenClaw, Hermes, anything MCP | `npx -y @connskill/mcp-growth-services` |
+| **MCP server** (`index.mjs`) | Claude Code, Claude Desktop, Cursor, Codex, OpenClaw, Hermes, anything MCP | Published npm package, currently 0.2.1; see source setup for 0.3.0 |
 | **Skill** (`skills/connskill-growth/`) | Claude Code, Codex, OpenClaw, Hermes (agentskills.io format) | copy the folder or install from this repo |
-| **Standalone script** (`skills/connskill-growth/scripts/x402-call.mjs`) | any agent that can run `node` | `node x402-call.mjs POST /v1/keyword-ideas '{"keyword":"..."}'` |
+| **Standalone script** (`skills/connskill-growth/scripts/x402-call.mjs`) | any agent that can run `node` | `node x402-call.mjs GET /v1/local-market-check-quote` (free) |
 
 Tools are generated from the service's current [OpenAPI catalogue](https://agent.connskill.com/openapi.json)
 and [x402 prices](https://agent.connskill.com/.well-known/x402) when the MCP process first reads its catalogue.
@@ -24,8 +51,7 @@ operations are kept out of this adapter. Restart the MCP process to load an upda
 
 ## Payment model
 
-This source tree is the local **0.3.0 candidate**. Publishing the npm package,
-registry metadata and Glama build is a separate release step.
+The following describes the 0.3.0 source candidate, not the currently published 0.2.1 package.
 
 - **Free endpoints** work with no wallet.
 - **Paid endpoints** need `X402_WALLET_KEY`, the private key of a Base wallet holding
@@ -62,7 +88,10 @@ agent may spend. Never a main wallet.
 
 ## Install
 
-Requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
+The 0.3.0 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
+The `npx` examples below select the published npm release (0.2.1 at the check above).
+For the 0.3.0 source candidate, use `node` and the absolute path to its `index.mjs`
+after the source setup. Free discovery needs no wallet.
 
 ### Claude Code
 
@@ -70,7 +99,7 @@ Requires Node.js 22 or newer. The lockfile includes runtime dependencies that re
 claude mcp add connskill-growth -s user -e X402_WALLET_KEY=0x... -e X402_MAX_USD=0.50 -- npx -y @connskill/mcp-growth-services
 ```
 
-Or as a plugin with the skill included (asks for the key in its own config, stored in the keychain):
+Or install the GitHub plugin with its skill (a separate source route from npm; configure wallet credentials through your client):
 
 ```bash
 claude plugin marketplace add CONN-SKILL/connskill-growth-mcp
@@ -121,7 +150,9 @@ Or MCP in `~/.hermes/config.yaml` under `mcp_servers:` with `command: npx`,
 ### From source
 
 ```bash
-git clone https://github.com/CONN-SKILL/connskill-growth-mcp && cd connskill-growth-mcp && npm install
+git clone https://github.com/CONN-SKILL/connskill-growth-mcp
+cd connskill-growth-mcp
+npm ci
 node index.mjs            # MCP over stdio
 node test-smoke.mjs       # lists tools, calls a free endpoint, checks the paid guard (never spends)
 ```
@@ -175,8 +206,10 @@ payment store is required for free discovery.
 Current amounts and tiers are listed in the [x402 discovery document](https://agent.connskill.com/.well-known/x402).
 The actual payment challenge binds the amount for the chosen request.
 
+- `GET /v1/local-market-check-quote` (free), then one approved `POST /v1/local-market-check`
+- `POST /v1/ranked-keywords`
 - `POST /v1/keyword-ideas`
-- `POST /v1/keyword-metrics` (up to 1000 keywords)
+- `POST /v1/keyword-metrics` (the linked entry recipe limits the task to 1–10 selected keywords; read the live schema for API limits)
 - `POST /v1/keyword-metrics-multi` (up to 30 locations, one payment)
 - `POST /v1/serp-report` (organic + AI overview, PAA, featured snippet)
 - `POST /v1/site-audit` (Labs + backlinks + real on-page crawl)

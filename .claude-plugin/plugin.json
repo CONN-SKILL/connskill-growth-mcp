@@ -1,6 +1,6 @@
 {
   "name": "connskill-growth",
-  "description": "SEO/SERP data, SMS verification, inboxes, EU-hosted LLM and x402 seller trust check for agents, paid per call in USDC (x402). Tools are generated live from agent.connskill.com.",
+  "description": "Local market checks, domain rankings and keyword research for AI agents. Free recipes and quotes before approved JSON results via x402 (USDC on Base).",
   "version": "0.3.0",
   "author": {
     "name": "CONNSKILL GmbH & Co. KG",
@@ -14,8 +14,7 @@
     "seo",
     "serp",
     "usdc",
-    "agents",
-    "gdpr"
+    "agents"
   ],
   "userConfig": {
     "X402_WALLET_KEY": {
