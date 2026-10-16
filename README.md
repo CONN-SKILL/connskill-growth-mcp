@@ -1,24 +1,44 @@
 # @connskill/mcp-growth-services
 
-Turn a local business question into one JSON report: Google search results, Maps
-listings, observed competitor domains and optional own-domain presence. The
-**Local Market Check** combines these observations in one paid package call.
-You can also start with a domain-ranking snapshot or selected keyword demand.
+Start with **Keyword Metrics** for Google Ads search volume, CPC, advertising
+competition and available monthly history. Add **AI Search Volume** only when
+modeled question-demand signals help your decision. These are two separate paid
+results, not an automatic bundle. AI demand includes signals such as Google
+People Also Ask; it is **not measured ChatGPT or Perplexity usage**. Advertising
+competition is not organic SEO difficulty.
 
-| Result | Free recipe | Paid tool |
+[Start keyword research](https://agent.connskill.com/keyword-research?ref=github) ·
+[Deutscher Einstieg](https://agent.connskill.com/de/keyword-research?ref=github) ·
+[Worked guide](https://agent.connskill.com/news/google-and-ai-keyword-demand?ref=github)
+
+| Result | Free preparation | Paid MCP tool |
 |---|---|---|
-| Search + Maps for one term and location | [Local Market Check](https://agent.connskill.com/local-market-check) · [JSON recipe](https://agent.connskill.com/local-market-check.json) | `local_market_check` |
-| Keywords a domain ranks for | [Domain rankings](https://agent.connskill.com/domain-rankings) · [JSON recipe](https://agent.connskill.com/domain-rankings.json) | `ranked_keywords` |
-| Search volume and advertising competition for selected terms | [Keyword demand](https://agent.connskill.com/keyword-research) · [JSON recipe](https://agent.connskill.com/keyword-research.json) | `keyword_metrics` |
+| Google keyword demand, CPC and advertising competition | [Keyword recipe](https://agent.connskill.com/keyword-research.json) | `keyword_metrics` |
+| Modeled AI/question-demand signal | [Data limits and inputs](https://agent.connskill.com/keyword-research?ref=github#ai-search-volume) | `ai_search_volume` |
+| Keywords a domain ranks for | [Domain rankings](https://agent.connskill.com/domain-rankings) | `ranked_keywords` |
+| Local search + Maps observations | [Local Market Check](https://agent.connskill.com/local-market-check) | `local_market_check` |
 
-The recipes are free and do not authorize payment. Resolve location and language,
-read the current contract and quote, then approve the scope and total spending
-limit before buying. Local Market Check returns JSON with `serpTop`, `maps`,
-`competitors`, optional `presence` and `tips`. Check `partial` and
-`unavailableSections`: missing data remains unknown. Tips are suggestions, not
-verified findings. The result is a sample, not a complete market analysis or a
-ranking/revenue promise. Do not buy the component searches separately or retry
-payment after an unclear result.
+### One bounded keyword task
+
+1. Choose 1–10 terms and resolve the country/language with the free catalogue.
+2. Read current prices and input limits. Approve each tool and a total budget.
+3. Call only the approved tool, using the same terms and market for a comparison:
+
+```json
+{"keywords":["seo api","keyword research"],"location_code":2276,"language_code":"de"}
+```
+
+Example instruction for your MCP client (preparation only):
+
+> Prepare Keyword Metrics for these two terms in Germany, in German. Explain
+> the current price and output fields. Offer AI Search Volume as a separate,
+> optional modeled signal. Do not buy either result until I approve the tools
+> and total budget. Preserve missing data as unknown and do not retry payment
+> after an unclear result.
+
+A free recipe or this prompt does not authorize payment. Keep `X402_MAX_USD=0`
+and omit the wallet for preparation. The cap is per call, not a combined budget.
+No ranking or revenue guarantee; check partial and unavailable results.
 
 Other catalogue services include site audits, backlinks, SMS verification,
 receive-only inboxes, LLM chat hosted in Germany and x402 seller checks.
@@ -28,7 +48,8 @@ No account, no API key. Paid calls use **USDC on Base via x402**. Free endpoints
 
 ## Source and published package
 
-Version **0.3.1** updates the MCP SDK and vulnerable transitive dependencies.
+Version **0.3.2** adds the keyword-first guide and optional discovery-channel measurement.
+Version **0.3.1** updated the MCP SDK and vulnerable transitive dependencies.
 The payment protocol and spending guards are unchanged from 0.3.0, which introduced the v2 payment client and persistent purchase guards
 described below. Earlier **0.2.1** installations use a different payment client;
 do not assume these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
@@ -52,7 +73,7 @@ operations are kept out of this adapter. Restart the MCP process to load an upda
 
 ## Payment model
 
-The following describes version 0.3.1 and does not apply to earlier 0.2.1 installations.
+The following describes version 0.3.2 and does not apply to earlier 0.2.1 installations.
 
 - **Free endpoints** work with no wallet.
 - **Paid endpoints** need `X402_WALLET_KEY`, the private key of a Base wallet holding
@@ -89,7 +110,7 @@ agent may spend. Never a main wallet.
 
 ## Install
 
-The 0.3.1 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
+The 0.3.2 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
 The `npx` examples below select the published npm release; verify its version first.
 To run the checked-in source, use `node` and the absolute path to its `index.mjs`
 after the source setup. Free discovery needs no wallet.
@@ -224,3 +245,19 @@ Something missing? `POST /v1/wishlist` is free and read by humans.
 ## License
 
 MIT. Built by CONNSKILL GmbH & Co. KG, Traunstein, Germany.
+
+## Optional discovery-channel measurement
+
+Calls made by this MCP adapter identify the software as `connskill-growth-mcp`
+in the User-Agent header. Optionally set `X402_DISCOVERY_SOURCE` to where you
+actually found it: `github`, `npm`, `glama`, `mcp-registry`, `x402scan`, `402index`,
+`x402-list`, `agenstry`, or `website`. Leave it unset if unknown. No visitor ID,
+IP address or wallet key is added by this feature. The existing payment protocol
+still uses the payer wallet to settle a purchase.
+
+The merchant reports this as a **self-reported channel**, separately from MCP
+client usage. A successful HTTP request alone is not counted as a sale: the
+report requires a matching payment and stored successful delivery. Missing or
+conflicting channel evidence remains unknown. Installing through npm does not
+prove that npm acquired the buyer. Endpoint URLs, signed resources and purchase
+bodies are unchanged by this measurement.

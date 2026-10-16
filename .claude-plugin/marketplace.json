@@ -5,14 +5,14 @@
     "url": "https://agent.connskill.com"
   },
   "metadata": {
-    "description": "CONNSKILL: local market checks, rankings and keyword research for agents via x402."
+    "description": "CONNSKILL: keyword metrics and modeled AI search demand via x402."
   },
   "plugins": [
     {
       "name": "connskill-growth",
       "source": "./",
-      "description": "Local market checks, rankings and keyword research as JSON. Free recipes and quotes, paid per call in USDC via x402. MCP server + skill.",
-      "version": "0.3.1",
+      "description": "Keyword Metrics and modeled AI search demand as JSON. MCP server + skill; separate approved x402 calls.",
+      "version": "0.3.2",
       "category": "data",
       "keywords": [
         "x402",

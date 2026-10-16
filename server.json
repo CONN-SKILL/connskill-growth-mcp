@@ -1,18 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.CONN-SKILL/connskill-growth-mcp",
-  "description": "Local market checks, rankings and keyword research as JSON, paid per call via x402 in USDC on Base.",
+  "description": "Keyword metrics and modeled AI search demand as JSON. Approved x402 calls in USDC on Base.",
   "repository": {
     "url": "https://github.com/CONN-SKILL/connskill-growth-mcp",
     "source": "github"
   },
-  "version": "0.3.1",
-  "websiteUrl": "https://agent.connskill.com",
+  "version": "0.3.2",
+  "websiteUrl": "https://agent.connskill.com/keyword-research?ref=mcp-registry",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@connskill/mcp-growth-services",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "transport": {
         "type": "stdio"
       },
@@ -27,6 +27,13 @@
         {
           "name": "X402_MAX_USD",
           "description": "Hard cap per paid call in USD (default 1.00).",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "X402_DISCOVERY_SOURCE",
+          "description": "Optional self-reported discovery channel: github, npm, glama, mcp-registry, x402scan, 402index, x402-list, agenstry, website. Leave empty if unknown. Not verified acquisition.",
           "isRequired": false,
           "isSecret": false,
           "format": "string"

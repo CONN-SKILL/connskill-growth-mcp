@@ -1,7 +1,7 @@
 version: 1
 name: connskill-growth-services
 displayName: CONNSKILL Growth Services
-description: Local market checks, domain rankings and keyword research as JSON for AI agents. Free recipes and quotes precede approved x402 calls in USDC on Base; tools follow live discovery.
+description: Keyword Metrics and modeled AI search demand as JSON for AI agents. Google Ads volume, CPC and question-demand signals with explicit data limits. Approved x402 calls in USDC on Base.
 category: data
 tags:
   - seo
@@ -9,7 +9,7 @@ tags:
   - ai-agents
   - data
   - usdc
-homepage: https://agent.connskill.com
+homepage: https://agent.connskill.com/keyword-research?ref=smithery
 startCommand:
   type: stdio
   configSchema:

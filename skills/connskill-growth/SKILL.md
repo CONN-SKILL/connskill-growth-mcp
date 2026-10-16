@@ -1,6 +1,6 @@
 ---
 name: connskill-growth
-description: Prepare a local market check, domain-ranking snapshot or keyword-demand task for an AI agent. Resolve location, read the free quote and approve one paid JSON result via x402 (USDC on Base). Use for local Google search and Maps observations, observed competitor domains, optional own-domain presence, rankings or keyword research. Additional services are discoverable at agent.connskill.com; missing and partial results remain explicit.
+description: Prepare Keyword Metrics and optional modeled AI Search Volume for selected terms and a specific market. AI demand is not measured ChatGPT or Perplexity usage. Resolve location, read the free quote and approve one paid JSON result via x402 (USDC on Base). Use for local Google search and Maps observations, observed competitor domains, optional own-domain presence, rankings or keyword research. Additional services are discoverable at agent.connskill.com; missing and partial results remain explicit.
 license: MIT
 compatibility: Node 22+. Free endpoints need nothing. Paid endpoints need a Base wallet holding USDC (X402_WALLET_KEY) - use a dedicated, small wallet.
 metadata:
@@ -27,6 +27,17 @@ metadata:
 ---
 
 # CONNSKILL Growth Services (x402)
+
+Start with [Keyword Metrics](https://agent.connskill.com/keyword-research?ref=github)
+and optionally [AI Search Volume](https://agent.connskill.com/keyword-research?ref=github#ai-search-volume).
+Use `keyword_metrics` for Google Ads demand, CPC and advertising competition.
+Use `ai_search_volume` only for separately approved modeled question demand,
+including Google People Also Ask signals. Do not describe it as actual LLM usage.
+For a comparison use the same terms, location and language, for example:
+`{"keywords":["seo api","keyword research"],"location_code":2276,"language_code":"de"}`.
+Read current prices first; require approval for both calls and their total budget.
+Missing data stays unknown. No automatic second purchase or unclear-payment retry.
+
 
 Start with an outcome. These free recipes prepare one bounded task and grant no
 payment authority:
@@ -68,7 +79,7 @@ information only; do not request private customer data, keys or seed phrases.
 
 ## Client version and entry points
 
-These instructions describe version **0.3.1** with the v2 payment client.
+These instructions describe version **0.3.2** with the v2 payment client.
 Earlier **0.2.1** installations use a different payment client; do not assume
 these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
 and the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest).

@@ -1,7 +1,7 @@
 {
   "name": "@connskill/mcp-growth-services",
-  "version": "0.3.1",
-  "description": "Local market checks, domain rankings and keyword research for AI agents. One JSON result per approved x402 call in USDC on Base; tools generated from live discovery.",
+  "version": "0.3.2",
+  "description": "Keyword Metrics and modeled AI search demand for AI agents. Compare Google Ads volume, CPC and question-demand signals; approved x402 calls in USDC on Base.",
   "type": "module",
   "bin": {
     "connskill-growth-mcp": "index.mjs"
@@ -26,7 +26,9 @@
     "sms",
     "trust",
     "usdc",
-    "x402"
+    "x402",
+    "keyword-research",
+    "search-volume"
   ],
   "license": "MIT",
   "repository": {
@@ -34,7 +36,7 @@
     "url": "git+https://github.com/CONN-SKILL/connskill-growth-mcp.git"
   },
   "mcpName": "io.github.CONN-SKILL/connskill-growth-mcp",
-  "homepage": "https://agent.connskill.com",
+  "homepage": "https://agent.connskill.com/keyword-research?ref=npm",
   "files": [
     "index.mjs",
     "README.md",

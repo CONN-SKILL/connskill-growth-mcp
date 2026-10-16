@@ -1,12 +1,12 @@
 {
   "name": "connskill-growth",
-  "description": "Local market checks, domain rankings and keyword research for AI agents. Free recipes and quotes before approved JSON results via x402 (USDC on Base).",
-  "version": "0.3.1",
+  "description": "Keyword Metrics and modeled AI search demand for AI agents. Explicit data limits, free preparation and approved JSON results via x402.",
+  "version": "0.3.2",
   "author": {
     "name": "CONNSKILL GmbH & Co. KG",
     "url": "https://agent.connskill.com"
   },
-  "homepage": "https://agent.connskill.com",
+  "homepage": "https://agent.connskill.com/keyword-research?ref=github",
   "repository": "https://github.com/CONN-SKILL/connskill-growth-mcp",
   "license": "MIT",
   "keywords": [

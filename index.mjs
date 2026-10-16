@@ -30,6 +30,11 @@ let clients;
 try { clients = createConfiguredClients(); }
 catch (error) { console.error('Configuration failed: ' + clientErrorCode(error)); process.exit(1); }
 const ORIGIN = clients.origin;
+// Optional channel claim, never an identity or verified acquisition signal.
+const SOURCES = new Set(['github','npm','glama','mcp-registry','x402scan','402index','x402-list','agenstry','website']);
+const source = process.env.X402_DISCOVERY_SOURCE || '';
+if (source && !SOURCES.has(source)) { console.error('Invalid X402_DISCOVERY_SOURCE'); process.exit(1); }
+const userAgent = `connskill-growth-mcp/${PACKAGE.version}${source ? ` (source=${source})` : ''}`;
 const HTTP_METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head']);
 
 async function freeJson(path) {
@@ -147,7 +152,7 @@ async function callEndpoint(meta, args) {
   const target = ORIGIN + meta.path;
   const url = new URL(target);
   if (url.href !== target) throw new PaymentClientError('payment_target_invalid');
-  const opts = { method: meta.method, headers: {} };
+  const opts = { method: meta.method, headers: { 'user-agent': userAgent } };
   if (meta.method === 'GET' || meta.method === 'HEAD') {
     for (const [k, v] of Object.entries(args || {})) if (v != null) url.searchParams.set(k, String(v));
   } else {
