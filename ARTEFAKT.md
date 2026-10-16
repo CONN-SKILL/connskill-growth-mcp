@@ -1,6 +1,6 @@
 # CONNSKILL Growth Services MCP
 
-Stand: 16.10.2026. Keyword-Einstieg und optionale Herkunftsmessung für 0.3.2 vorbereitet; Veröffentlichung wird separat geprüft. Version 0.3.1 auf npm, GitHub, MCP Registry und Glama veröffentlicht. Status `e2e_verified` für Paketintegrität, kostenlose Discovery und Wallet-Sperre. SDK 1.32.1, fünf transitive Sicherheitsupdates, npm audit ohne Befund; 57 synthetische Regressionen und 9 AMD64-Containerprüfungen bestanden. Kein realer Zahlungstest in diesem Wartungsrelease.
+Stand: 16.10.2026. Version 0.3.2 auf GitHub, npm und MCP Registry veröffentlicht und öffentlich geprüft. Keyword Metrics und modellierte KI-Nachfrage stehen im Einstieg; optionale Kanalangabe ist ausdrücklich selbst gemeldet. npm-Archiv bytegleich zum Quellstand 114a04f. Status `e2e_verified` für Veröffentlichung, kostenlose Discovery und Wallet-Sperre. Glama bleibt bis zur separaten Abnahme auf dem zuletzt bestätigten Stand 0.3.1. Kein realer Zahlungstest in diesem Distributionsrelease.
 
 Historischer Veröffentlichungsstand 18.09.2026: Version 0.3.0 ist auf GitHub, npm und in der offiziellen MCP Registry veröffentlicht und öffentlich geprüft. Status `e2e_verified` für Veröffentlichung, Paketintegrität und kostenlose MCP-Discovery; bezahlte Lieferung wurde bei dieser Abnahme nicht getestet.
 
