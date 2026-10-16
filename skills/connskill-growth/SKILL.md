@@ -68,7 +68,7 @@ information only; do not request private customer data, keys or seed phrases.
 
 ## Client version and entry points
 
-These instructions describe version **0.3.0** with the v2 payment client.
+These instructions describe version **0.3.1** with the v2 payment client.
 Earlier **0.2.1** installations use a different payment client; do not assume
 these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
 and the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest).

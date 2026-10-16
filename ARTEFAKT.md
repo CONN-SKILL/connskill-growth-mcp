@@ -1,6 +1,8 @@
 # CONNSKILL Growth Services MCP
 
-Stand: 18.09.2026. Version 0.3.0 ist auf GitHub, npm und in der offiziellen MCP Registry veröffentlicht und öffentlich geprüft. Status `e2e_verified` für Veröffentlichung, Paketintegrität und kostenlose MCP-Discovery; bezahlte Lieferung wurde bei dieser Abnahme nicht getestet.
+Stand: 16.10.2026. Kandidat 0.3.1: SDK 1.32.1 und fünf transitive Sicherheitsupdates, npm audit ohne Befund, 57 synthetische Regressionstests und kostenlose Live-Probe bestanden. Veröffentlichung und Glama-Abnahme stehen noch aus.
+
+Historischer Veröffentlichungsstand 18.09.2026: Version 0.3.0 ist auf GitHub, npm und in der offiziellen MCP Registry veröffentlicht und öffentlich geprüft. Status `e2e_verified` für Veröffentlichung, Paketintegrität und kostenlose MCP-Discovery; bezahlte Lieferung wurde bei dieser Abnahme nicht getestet.
 
 ## Auf einen Blick
 

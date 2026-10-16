@@ -28,7 +28,8 @@ No account, no API key. Paid calls use **USDC on Base via x402**. Free endpoints
 
 ## Source and published package
 
-Version **0.3.0** introduces the v2 payment client and persistent purchase guards
+Version **0.3.1** updates the MCP SDK and vulnerable transitive dependencies.
+The payment protocol and spending guards are unchanged from 0.3.0, which introduced the v2 payment client and persistent purchase guards
 described below. Earlier **0.2.1** installations use a different payment client;
 do not assume these safeguards for that version. Check [npm latest](https://registry.npmjs.org/@connskill%2fmcp-growth-services/latest)
 and the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CONN-SKILL%2Fconnskill-growth-mcp/versions/latest)
@@ -51,7 +52,7 @@ operations are kept out of this adapter. Restart the MCP process to load an upda
 
 ## Payment model
 
-The following describes version 0.3.0 and does not apply to earlier 0.2.1 installations.
+The following describes version 0.3.1 and does not apply to earlier 0.2.1 installations.
 
 - **Free endpoints** work with no wallet.
 - **Paid endpoints** need `X402_WALLET_KEY`, the private key of a Base wallet holding
@@ -88,7 +89,7 @@ agent may spend. Never a main wallet.
 
 ## Install
 
-The 0.3.0 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
+The 0.3.1 source requires Node.js 22 or newer. The lockfile includes runtime dependencies that require Node 22.
 The `npx` examples below select the published npm release; verify its version first.
 To run the checked-in source, use `node` and the absolute path to its `index.mjs`
 after the source setup. Free discovery needs no wallet.

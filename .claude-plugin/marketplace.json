@@ -12,7 +12,7 @@
       "name": "connskill-growth",
       "source": "./",
       "description": "Local market checks, rankings and keyword research as JSON. Free recipes and quotes, paid per call in USDC via x402. MCP server + skill.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "category": "data",
       "keywords": [
         "x402",
