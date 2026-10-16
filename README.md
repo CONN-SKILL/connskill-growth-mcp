@@ -71,6 +71,42 @@ and [x402 prices](https://agent.connskill.com/.well-known/x402) when the MCP pro
 The available tool set follows those documents; endpoints marked for exclusion and wallet-signature
 operations are kept out of this adapter. Restart the MCP process to load an updated catalogue.
 
+## Your first purchase: prepare, then enable payment
+
+Start without a wallet and with payment disabled. For an MCP client that accepts
+`mcpServers`, use this pinned configuration (Node.js 22 or newer):
+
+```json
+{
+  "mcpServers": {
+    "connskill-growth": {
+      "command": "npx",
+      "args": ["-y", "@connskill/mcp-growth-services@0.3.2"],
+      "env": { "X402_MAX_USD": "0", "X402_DISCOVERY_SOURCE": "github" }
+    }
+  }
+}
+```
+
+1. Inspect the free catalogue, inputs and current quote. HTTP 402 is a price
+   offer, not a payment or an error to fix by retrying.
+2. Approve the exact tool, inputs and price. Configure `X402_WALLET_KEY` only
+   through your MCP client's secure local configuration, using a dedicated
+   wallet with USDC on **Base Mainnet**. Never paste a key or seed into a chat.
+3. Change `X402_MAX_USD` from `0` to the approved per-call amount, then **restart
+   the MCP process** so it reads the new configuration. A configured wallet alone
+   does not approve a purchase. Start with one `keyword_metrics` call. Optional
+   `ai_search_volume` is a separate purchase, not part of that approval.
+4. Save the result and purchase reference. For an unclear payment or missing
+   result, use [wallet support](https://agent.connskill.com/support); do not pay
+   again. Return the cap to `0` and restart for later preparation-only sessions.
+
+The cap is **per call**, not a total budget or a one-call counter. Your client
+must also enforce your approved scope. Client/network costs may be additional.
+Hosted MCP can inspect free tools, but it does not supply a wallet or automatically
+turn every MCP client into an x402 payment client. Use this local adapter for its
+supported automatic payment flow.
+
 ## Payment model
 
 The following describes version 0.3.2 and does not apply to earlier 0.2.1 installations.
